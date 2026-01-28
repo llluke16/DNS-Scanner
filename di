@@ -10,7 +10,7 @@ for i in "${dnsArray[@]}"; do
 		echo "No "$i" records found for this domain"
 	else
 		dig "$i" "$domain" | awk '/Query time/{p=0};p;/ANSWER SECTION/{p=1}' | awk 'NF >=5 {print $1, "-->", $5}' | while read -r col1 arrow hostname; do
-			if [[ "$i" == "A" || "$i" == "CNAME" || "$i" == "MX" || "$i" == "NS" ]]; then
+			if [[ "$i" == "A" || "$i" == "CNAME" || "$i" == "NS" ]]; then
 				hostopt=$(host "$hostname" | awk 'NR == 1')
 				echo "$col1 $arrow $hostname --> $hostopt"
 			else
