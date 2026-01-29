@@ -2,7 +2,10 @@
 
 domain="$1"
 declare -a dnsArray=("A" "AAAA" "CNAME" "MX" "NS" "TXT" "SOA" "PTR" "SRV")
-
+if [[ -z $1 ]]; then
+	echo "Enter a domain name silly"
+else
+if [[ "$1" == ?*"."?* ]]; then
 
 for i in "${dnsArray[@]}"; do
 	echo "===================== $i records for $domain ====================="
@@ -23,3 +26,8 @@ for i in "${dnsArray[@]}"; do
 		done
 	fi
 done
+
+else
+	echo "That's not a valid domain, try again retard"
+fi
+fi
