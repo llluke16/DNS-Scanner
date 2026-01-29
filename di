@@ -6,12 +6,16 @@ if [[ -z $1 ]]; then
 	echo "Enter a domain name silly"
 else
 if [[ "$1" == ?*"."?* ]]; then
-
+	echo "===================== WHOIS info for $domain ====================="
+	echo
+	whois $1 | sed '/>>> Last update of/q'
+	echo
 for i in "${dnsArray[@]}"; do
 	echo "===================== $i records for $domain ====================="
-
+	echo
 	if dig "$i" "$domain" | grep -q 'ANSWER: 0'; then
 		echo "No "$i" records found for this domain"
+		echo
 	else
 		field=5
 		[[ "$i" == "MX" ]] && field=6
@@ -25,6 +29,7 @@ for i in "${dnsArray[@]}"; do
 			fi
 		done
 	fi
+	echo
 done
 
 else
